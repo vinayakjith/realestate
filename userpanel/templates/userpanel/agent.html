@@ -1,0 +1,151 @@
+{% extends 'userpanel/userbase.html' %}
+{% block title %}
+Real Estate Listings - Coming Soon
+{% endblock %}
+{% load static %}
+
+{% block content %}
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+      text-align: left;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    .button-link {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .button-link:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .button-link {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <div class="container">
+    <img src="{{ agent.profile_image.url }}" alt="Agent Profile Picture" class="profile-img">
+    <h1>{{ agent.user.username }}</h1>
+
+    <table>
+      <tr>
+        <th>Bio</th>
+        <td>
+          {% if agent.user_bio %}
+          {{ agent.user_bio }}</td>
+          {% else %}
+          No bio
+          {% endif %}
+      </tr>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td>{{ agent.phone }}</td>
+      </tr>
+      <tr>
+        <th>Average Rating</th>
+        <td>{{ agent.average_rating|floatformat:1 }}/5</td>
+      </tr>
+      <tr>
+        <th>Ratings</th>
+        <td>
+          <ul>
+            {% for rating in ratings %}
+              <li>
+                <strong>{{ rating.reviewer.username }}</strong> rated 
+                <strong>{{ rating.value }}/5</strong>: {{ rating.comment }}
+              </li>
+            {% empty %}
+              <li>No ratings yet.</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+    <a href="{% url 'userpanel:rate_agent' agent.id %}" class="button-link">Rate This Agent</a>
+  </div>
+{% endblock %}
+

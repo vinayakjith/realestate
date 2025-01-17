@@ -1,0 +1,43 @@
+{% extends 'userpanel/userbase.html' %}
+{% block title %}
+{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+    .form-container {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 50px auto;
+  }
+</style>
+
+
+<div class="form-container">
+  <form method="POST" class="m-3" enctype="multipart/form-data" style="color: black;">
+      <h1>Edit Posting</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary"> Create</button>
+
+  </form>
+</div>  
+
+{% endblock %}

@@ -1,0 +1,16 @@
+<!-- payment_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Make Payment</title>
+</head>
+<body>
+    <h1>Payment Page</h1>
+    <p>Pay a fee of $100 to post properties on our platform.</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Make Payment</button>
+    </form>
+</body>
+</html>

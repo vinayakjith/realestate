@@ -1,0 +1,57 @@
+{% extends 'userpanel/userbase.html' %}
+{% block title %}
+
+Real Estate Listings
+
+{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<section class="find_section ">
+    <div class="container">
+        <form action="{% url 'userpanel:view_listings' %}" method="GET">
+            <div class="form-row">
+              <div class="col-md-5">
+                <input type="text" class="form-control" name="category" placeholder="Search Categories (Rent or Sale)">
+              </div>
+              <div class="col-md-5">
+                <input type="text" class="form-control" name="location" placeholder="Location">
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="">
+                  Search
+                </button>
+                <a href="{% url 'userpanel:clear_search' %}" type="button" style="color: black;">Clear</a>
+              </div>
+            </div>
+          </form>
+    </div>
+  </section>
+
+      <div class="container-fluid topmargin-lg">
+        <h1 style="color: black ;">Latest Propeties</h1>
+        <div class="row g-3">
+            {% for property in properties %}
+            <div class="col-12 col-md-4">
+                <div class="property-container">
+                    <div class="property-title">
+                    <h3><a href="#">{{ property.title }}</a></h3>
+                    <h4><a href="#">{{ property.price }}</a></h4>
+                    <h4><a href="#">{{ property.location }}</a></h4>
+                </div>
+                <div class="property-button">
+                    <a href="{% url 'userpanel:viewposting' property.id %}">View Posting</a>
+                </div>
+                <div class="property-icon">
+                    <a href="#"><i class="icon ion-md-arrow-dropright-circle"></i></a>
+                </div>
+                <img src="{{ property.images.url }}" class="img-fluid" alt="{{ property.title }}" style="width: 500px; height: 300px;">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

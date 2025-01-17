@@ -1,0 +1,74 @@
+{% extends 'userpanel/userbase.html' %}
+
+{% block title %}
+  Rate {{ agent.user.username }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-container {
+    width: 400px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #4a4a4a;
+  }
+  .form-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  .form-container button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .form-container button:hover {
+    background-color: #4cae4c;
+  }
+  .form-container a {
+    margin-top: 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+  }
+  .form-container a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="form-container">
+  <h1>Rate {{ agent.user.username }}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Rating</button>
+  </form>
+
+  <a href="{% url 'userpanel:agent' agent.id %}">Back to Profile</a>
+</div>
+
+{% endblock %}

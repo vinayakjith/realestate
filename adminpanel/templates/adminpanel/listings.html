@@ -1,0 +1,60 @@
+
+
+{% extends 'adminpanel/adminbase.html' %}
+{% block title %}
+
+Real Estate Listings
+
+{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<h2>Lisitngs</h2>
+
+<div class="row">
+
+    <div class="col-md-12">
+      <div class="card card-round">
+        <div class="card-header">
+          <div class="card-head-row card-tools-still-right">
+            <div class="card-title">Approve Listings</div>
+            </div>
+          </div>
+        </div>
+  <div class="card-body p-0">                    
+    <div class="table-responsive">
+      <!-- Projects table -->
+      <table class="table align-items-center mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Listing name</th>
+            <th scope="col">User</th>
+            <th scope="col" class="text-end">Date & Time</th>
+            <th scope="col" class="text-end">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for property in property %}
+          <tr>
+            <td>{{ property.title }}</td>
+            <td>{{ property.posted_by }}</td>
+            <td>{{ property.created_at }}</td>
+            <td>
+                {% if property.status == "notavailable" %}
+                <a href="{% url 'adminpanel:approve' property.id %}" type="button" style="color: black;">Approve</a>
+                {% else %}
+                <p>Approved</p>
+                {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}

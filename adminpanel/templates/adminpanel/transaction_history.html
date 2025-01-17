@@ -1,0 +1,45 @@
+{% extends 'adminpanel/adminbase.html' %}
+{% block title %}
+
+Real Estate Listings
+
+{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<h2>Transaction History</h2>
+
+{% if payments %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Transaction ID</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.user }}</td>
+            <td>{{ payment.transaction_id }}</td>
+            <td>${{ payment.amount }}</td>
+            <td>{{ payment.created_at|date:"Y-m-d H:i" }}</td>
+            {% if payment.is_successful %}
+            <td>Successful</td>
+            {% else %}
+            <td>Failed</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No transactions found.</p>
+{% endif %}
+
+<a href="{% url 'userpanel:userhome' %}" class="btn btn-primary">Back to Home</a>
+{% endblock %}

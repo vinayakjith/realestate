@@ -1,0 +1,112 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="">
+  <meta name="description" content="Real Estate Platform">
+  <meta name="keywords" content="Real Estate, Property Listing, Homes">
+  <meta name="robots" content="index, follow">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,400,600,700" rel="stylesheet">
+
+  <!-- Ionic Icons -->
+  <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+
+  <title>ReState</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg fixed-top">
+
+
+    <!-- Navbar Toggler for Mobile View -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="ion-md-menu" style="font-size: 1.5rem;"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% if request.resolver_match.url_name == 'userhome' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'adminpanel:adminhome' %}">Home</a>
+        </li>        <li class="nav-item">
+          <a class="nav-link" href="{% url 'adminpanel:dashboard' %}">Admin Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpanel:payment_methods' %}">Create Posting</a>
+        </li>
+        {% if profile %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpanel:userprofile' user.id %}">Edit Profile</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpanel:userprofile' user.id %}">Create Profile</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpanel:view_wishlist' %}">Wishlists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userpanel:userlogout' %}">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://wa.me/918138875720">Contact Us</a>
+        </li>
+      </ul>
+
+
+          <div class="avatar-sm">
+            <a href="{% url 'userpanel:viewprofile' user.id %}" style="color: black;">View Profile</a>
+            <img
+              src="{{ profile.profile_image.url }}" 
+              alt="..."
+              class="avatar-img rounded-circle"
+              style="width: 50px; height: 50px;"
+            />
+
+</nav><!-- End navbar -->
+  
+{% if messages %}
+    {% for message in messages %}
+    <!-- <div class="alert alert-success" role="alert">
+      {{ message }}
+    </div> -->
+    <script>
+        alert('{{ message }}')
+    </script>
+    
+    {% endfor %}
+  {% endif %}
+  
+
+  {% block content %}{% endblock %}
+
+
+
+  <!-- Optional JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

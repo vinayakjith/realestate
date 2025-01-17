@@ -1,0 +1,43 @@
+
+{% extends 'adminpanel/adminbase.html' %}
+{% block title %}
+
+Real Estate Listings
+
+{% endblock %}
+{% load static %}
+
+
+{% block content %}
+<h2>Property Reports</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Reported By</th>
+            <th>Reason</th>
+            <th>Screenshot</th>
+            <th>Date</th>
+            <th>View Post</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.property.title }}</td>
+            <td>{{ report.user.username }}</td>
+            <td>{{ report.reason }}</td>
+            <td>
+                {% if report.screenshot %}
+                <img src="{{ report.screenshot.url }}" alt="screenshot" style="width: 400x; height: 300px;">
+                {% else %}
+                No Screenshot
+                {% endif %}
+            </td>
+            <td>{{ report.created_at }}</td>
+            <td><a href="{% url 'userpanel:viewposting' report.property.id %}" style="color: black;">View Posting<td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

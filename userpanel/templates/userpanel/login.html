@@ -1,0 +1,90 @@
+{% extends 'sitevisitor/page_inheritance.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background-image: url("{% static 'images/background.jpg' %}"); /* Replace with your background image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .form-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 400px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-container h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #4a4a4a;
+    text-align: center;
+  }
+
+  .form-container form {
+    width: 100%;
+  }
+
+  .form-container button {
+    width: 100%;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .form-container button:hover {
+    background-color: #0056b3;
+  }
+
+  .form-container a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .form-container a:hover {
+    text-decoration: underline;
+  }
+
+  .form-container p {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+  }
+</style>
+
+<div class="form-container">
+  <h1>Login</h1>
+  <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+  <a href="{% url 'userpanel:forgot_password' %}">Forgot Password?</a>
+  <p>New to the app? <a href="{% url 'userpanel:register' %}">Create a free account now</a></p>
+</div>
+{% endblock %}

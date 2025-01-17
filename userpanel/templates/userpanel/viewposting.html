@@ -1,0 +1,57 @@
+{% extends 'userpanel/userbase.html' %}
+{% block title %}
+Real Estate Listings
+{% endblock %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* Add custom styles if needed */
+</style>
+
+<section id="properties">
+    <div class="container">
+        <h2>Available Properties</h2>
+
+        <!-- Loop through all properties -->
+        <div class="row">
+            <div class="card mb-3" style="width: 100%;">
+                <img src="{{ property.images.url }}" alt="{{ property.title }}" class="img-fluid">
+
+                <div class="property-details p-3">
+                    <h3>{{ property.title }}</h3>
+                    <p><strong>Price:</strong> ₹{{ property.price }}</p>
+                    <p><strong>Location:</strong> {{ property.location }}</p>
+                    <p><strong>Google Maps:</strong> <a href="{{ property.google }}" target="_blank" style="color: black;">View on Google Maps</a></p>
+
+                    
+                    <p><strong>Status:</strong> {{ property.get_status_display }}</p>
+                    <p><strong>Property type:</strong> For {{ property.property_type }}</p>
+                    <p><strong>Description:</strong> {{ property.description }}</p>
+                    <p><strong>Agent rating:</strong>{{ agent.average_rating|floatformat:1 }}/5</p>
+
+
+                    <!-- Action Buttons -->
+                    <a href="{% url 'userpanel:agent' agent.id %}" class="btn btn-primary">Contact Post Owner</a>
+                    <a href="{% url 'userpanel:property_detail' property.id %}" class="btn btn-primary">Report Property</a>
+                    
+                    {% if is_wishlisted %}
+                        <a href="{% url 'userpanel:remove_from_wishlist' property.id %}" class="btn btn-danger">Remove from Wishlist</a>
+                    {% else %}
+                        <a href="{% url 'userpanel:add_to_wishlist' property.id %}" class="btn btn-success">Add to Wishlist</a>
+                    {% endif %}
+
+                    <!-- Mark as Sold (Only for the owner) -->
+                    {% if request.user.id == property.posted_by.id %}
+                        <a href="{% url 'userpanel:sold' property.id %}" class="btn btn-warning">Mark as Sold</a>
+                        <a href="{% url 'userpanel:editposting' property.id %}" class="btn btn-warning">Edit posting</a>
+                        <a href="{% url 'userpanel:deleteposting' property.id %}" class="btn btn-warning">Delete posting</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

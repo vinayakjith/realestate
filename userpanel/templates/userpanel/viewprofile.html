@@ -1,0 +1,75 @@
+{% extends 'userpanel/userbase.html' %}
+{% block title %}
+User Profile
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background-image: url("{% static 'images/bg.png' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    background-image: url("{% static 'images/bg1.jpg' %}");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+  }
+
+  .card img {
+    width: 100px;
+    border-radius: 50%;
+  }
+
+  .btn {
+    margin-top: 15px;
+  }
+</style>
+
+
+<div class="card">
+  <div class="card-body text-center font-weight-bold">
+    <h5 class="card-title" style="color: black;">{{ profile.user.first_name|upper }} {{ profile.user.last_name|upper }}</h5>
+    {% if profile.profile_image %}
+      <img src="{{ profile.profile_image.url }}" class="card-img-top" alt="{{ profile.user.username }}" style="width: 100px;">
+    {% else %}
+      <img src="{% static 'images/default-profile.png' %}" alt="{{ profile.user.username }}">
+    {% endif %}
+    <p class="card-text" style="color: black;">{{ profile.profile_description }}</p>
+  </div>
+
+  <ul class="list-group list-group-flush text-center font-weight-bold">
+    <li class="list-group-item" style="color: black;">{{ profile.user.username }}</li>
+    <li class="list-group-item" style="color: black;">{{ profile.user.email }}</li>
+    <li class="list-group-item" style="color: black;">{{ profile.phone }}</li>
+  </ul>
+
+  {% if user.is_staff %}
+    <a href="{% url 'adminpanel:adminhome' %}" class="btn btn-danger">Back to Home</a>
+  {% else %}
+    <a href="{% url 'userpanel:userhome' %}" class="btn btn-danger">Back to Home</a>
+  {% endif %}
+
+
+  <a href="{% url 'userpanel:changepass' %}" class="btn btn-danger">Change Password</a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+<form method="post">
+    {% csrf_token %}
+    <h3>Pay ₹1000 to proceed</h3>
+    <img src="{% static 'images/qr_code.png' %}" alt="QR Code" style="width: 200px;">
+    <p>Scan this QR code to pay ₹1000</p>
+    <button type="submit" class="btn btn-success">I Have Paid</button>
+  </form>
+  

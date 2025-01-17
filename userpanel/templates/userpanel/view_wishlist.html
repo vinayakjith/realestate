@@ -1,0 +1,44 @@
+{% extends 'userpanel/userbase.html' %}
+{% block title %}
+My Wishlist
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+{% if wishlist_items %}
+
+<div class="container-fluid topmargin-lg">
+  <h1 style="color: black; text-align: center;">Wishlists</h1>
+    <div class="row g-3">
+      
+      {% for wishlist_items in wishlist_items %}
+        <div class="col-12 col-md-4">
+            <div class="property-container">
+                <div class="property-title">
+                    <h3><a href="#">{{ wishlist_items.property.title }}</a></h3>
+                    <h4><a href="#">Price: ${{ wishlist_items.property.price }}</a></h4>
+                    <h4><a href="#">Location: {{ wishlist_items.property.location }}</a></h4>
+                </div>
+                <div class="property-button">
+                    <a href="{% url 'userpanel:viewposting' wishlist_items.property.id %}">>View Posting</a>
+                </div>
+                <div class="property-icon">
+                    <a href="#"><i class="icon ion-md-arrow-dropright-circle"></i></a>
+                </div>
+                <img
+                src="{{ wishlist_items.property.images.url }}"
+                alt="{{ wishlist_items.property.title }}"
+                class="img-fluid" style="width: 500px; height: 300px;">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<h3> No Propeties listed</h3>
+
+{% endif %}
+
+{% endblock %}

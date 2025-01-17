@@ -1,0 +1,72 @@
+{% extends 'sitevisitor/sitebase.html' %}
+{% load static %}
+{% block title %}
+
+Real Estate Listings
+
+{% endblock %}
+
+
+{% block content %}
+  
+<section id="hero">
+  <div class="container-fluid">
+    <div class="hero-container-desktop">
+      <div class="hero-details">
+        <h1>ReState</h1>
+        <p>Your companion to find the best</p>
+      </div>
+      <img src="{% static 'assets/images/desktop-hero.jpg' %}" class="img-fluid desktop-hero"
+        alt="https://unsplash.com/photos/B0aCvAVSX8E">
+    </div><!-- End hero container desktop -->
+  </div><!-- End container fluid -->
+  <section id="properties">
+    <div class="container">
+      <h2>The best marketplace to find homes for sale.</h2>
+      <div class="row topmargin-sm">
+        <div class="col-md-6">
+          <p>The home is the most important investment of a lifetime, both for emotional and financial reasons..</p>
+        </div>
+        <div class="col-md-6">
+          <p>When you find the perfect home, everything else falls into place.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<div class="container-fluid topmargin-lg">
+    <h1>Latest Propeties</h1>
+    <div class="row g-3">
+        {% for property in properties %}
+        <div class="col-12 col-md-4">
+            <div class="property-container">
+                <div class="property-title">
+                    <h3><a href="#">{{ property.title }}</a></h3>
+                    <h4><a href="#">{{ property.price }}</a></h4>
+                    <h4><a href="#">{{ property.location }}</a></h4>
+                </div>
+                <div class="property-button">
+                    <a href="{% url 'userpanel:userlogin' %}">Login to read more</a>
+                </div>
+                <div class="property-icon">
+                    <a href="#"><i class="icon ion-md-arrow-dropright-circle"></i></a>
+                </div>
+                <img src="{{ property.images.url }}" class="img-fluid" alt="{{ property.title }}" style="width: 500px; height: 300px;">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<section id="footer">
+  <div class="container text-center">
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="https://wa.me/918138875720"><i class="ion-logo-whatsapp"></i> Whatsapp</a></li>
+    </ul>
+  </div>
+</section>
+{% endblock %}
